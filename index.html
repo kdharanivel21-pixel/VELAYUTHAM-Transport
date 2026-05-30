@@ -141,15 +141,6 @@ section{ padding:80px 5%; }
     </div>
 </section>
 
-<section id="why-choose">
-    <h2 class="section-title">Why Choose Us</h2>
-    <div class="grid-container">
-        <div class="card"><h3>24/7 Availability</h3><p>Day or night, we are ready to move your goods.</p></div>
-        <div class="card"><h3>Experienced Drivers</h3><p>Your goods are in safe hands with our expert team.</p></div>
-        <div class="card"><h3>Fast Response</h3><p>Quick booking and immediate pickup service.</p></div>
-    </div>
-</section>
-
 <section id="booking">
     <div class="booking-box">
         <div class="form-logo-area">
@@ -168,7 +159,8 @@ section{ padding:80px 5%; }
 </section>
 
 <footer style="padding:40px; text-align:center; background:#111827; color:#888;">
-    <p>© 2026 Kumar Transport | Phone: 9443932361</p>
+    <p>© 2026 Kumar Transport | Ph: 9443932361</p>
+    <p>Created by: K.Dharanivel</p>
 </footer>
 
 <div class="float-buttons">
@@ -207,22 +199,26 @@ function handleBooking(event) {
     }
 
     const btn = document.getElementById("submitBtn");
-    btn.innerText = "Saving...";
+    btn.innerText = "Processing...";
     btn.disabled = true;
 
+    // 1. OPEN WHATSAPP FIRST
+    let msg = `🚚 *KUMAR TRANSPORT BOOKING*%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *From:* ${pickup}%0A🏁 *To:* ${drop}%0A📦 *Goods:* ${details}`;
+    window.open(`https://wa.me/919443932361?text=${msg}`, "_blank");
+
+    // 2. SAVE TO DATABASE SECOND
     database.ref('bookings').push({
         name, phone, pickup, drop, details, time: new Date().toLocaleString()
     })
     .then(() => {
-        let msg = `🚚 *KUMAR TRANSPORT BOOKING* %0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *From:* ${pickup}%0A🏁 *To:* ${drop}%0A📦 *Goods:* ${details}`;
-        window.open(`https://wa.me/919443932361?text=${msg}`, "_blank");
         document.getElementById("bookingForm").reset();
         btn.innerText = "Confirm Booking ✅";
         btn.disabled = false;
     })
     .catch(() => {
-        alert("Error connecting to Database.");
+        alert("Database Error! Make sure you updated your Rules in Firebase Console.");
         btn.disabled = false;
+        btn.innerText = "Confirm Booking ✅";
     });
 }
 </script>
