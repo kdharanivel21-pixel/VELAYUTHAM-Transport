@@ -177,7 +177,7 @@ section{ padding:80px 5%; }
         </div>
         <form id="bookingForm" onsubmit="handleBooking(event)">
             <input type="text" id="name" placeholder="Your Full Name" required>
-            <input type="number" id="phone" placeholder="10 Digit Mobile Number" required>
+            <input type="text" id="phone" placeholder="10 Digit Mobile Number" maxlength="10" required>
             <input type="text" id="pickup" placeholder="Pickup Location" required>
             <input type="text" id="drop" placeholder="Drop Location" required>
             <textarea id="details" rows="4" placeholder="List of goods..."></textarea>
@@ -215,6 +215,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// Live typing filter: Restricts the input field dynamically to digits 0-9 only
+document.getElementById("phone").addEventListener("input", function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+
 function handleBooking(event) {
     event.preventDefault();
     let name = document.getElementById("name").value;
@@ -225,21 +230,23 @@ function handleBooking(event) {
 
     // --- SMART PHONE NUMBER VALIDATION ---
     
-    // 1. Check length
-    if(phone.length !== 10) {
-        alert("❌ Error: Please enter an exact 10 digit number");
+    // 1. Strict Digits-Only Pattern Check (Must be exactly 10 numeric digits)
+    const onlyDigitsPattern = /^[0-9]{10}$/;
+    if(!onlyDigitsPattern.test(phone)) {
+        alert("❌ Error: Please enter a valid 10-digit phone number containing only numbers.");
         return;
     }
     
-    // 2. Reject repeated numbers like 0000000000, 1111111111, etc.
+    // 2. Reject repeated numbers like 0000000000, 1111111111, 2222222222, 3333333333, etc.
     const allSameDigits = /^(.)\1+$/;
     if(allSameDigits.test(phone)) {
         alert("❌ Error: Invalid fake number detected (All digits are identical)!");
         return;
     }
 
-    // 3. Reject sequential fake numbers like 1234567890
-    if(phone === "1234567890" || phone === "0123456789") {
+    // 3. Reject common sequential fake numbers
+    const fakeSequences = ["1234567890", "0123456789", "9876543210", "0987654321"];
+    if(fakeSequences.includes(phone)) {
         alert("❌ Error: Invalid fake number sequence!");
         return;
     }
