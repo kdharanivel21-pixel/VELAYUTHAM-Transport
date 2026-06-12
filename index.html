@@ -9,7 +9,7 @@
 <style>
 /* --- CORE STYLING --- */
 *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior:smooth; }
-body{ background:#0f1117; color:white; overflow-x:hidden; width: 100%; }
+body{ background:#0c1322; color:white; overflow-x:hidden; width: 100%; }
 
 /* --- NAVIGATION & LOGO --- */
 nav{ 
@@ -18,20 +18,43 @@ nav{
     display:flex; 
     justify-content:space-between; 
     align-items:center; 
-    background:#111827; 
+    background:#121c32; 
     position:fixed; 
     top:0; 
     left:0; 
     z-index:1000; 
-    box-shadow:0 0 15px rgba(0,0,0,0.5); 
+    box-shadow:0 4px 15px rgba(0,0,0,0.5); 
 }
-.logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-img { height: 50px; width: 50px; border-radius: 50%; border: 2px solid #facc15; object-fit: cover; }
-.logo-text { font-size: 20px; font-weight: 700; color: #facc15; }
+.logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-img { 
+    height: 70px; 
+    width: 70px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #cfa862; 
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+/* Animation: Logo spins slightly and glows on hover */
+.logo-container:hover .logo-img {
+    transform: rotate(5deg) scale(1.05);
+    box-shadow: 0 0 15px rgba(207, 168, 98, 0.6);
+}
+.logo-text { font-size: 22px; font-weight: 700; color: #cfa862; }
 
 nav ul{ display:flex; gap:20px; list-style:none; }
-nav ul li a{ text-decoration:none; color:white; font-size:14px; font-weight:500; transition:0.3s; }
-nav ul li a:hover{ color:#facc15; }
+nav ul li a{ text-decoration:none; color:white; font-size:14px; font-weight:500; transition:0.3s ease; position: relative; }
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #cfa862;
+    transition: width 0.3s ease;
+}
+nav ul li a:hover::after { width: 100%; }
+nav ul li a:hover{ color:#cfa862; }
 
 /* --- HERO SECTION --- */
 .hero{
@@ -39,21 +62,34 @@ nav ul li a:hover{ color:#facc15; }
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:100px 5% 50px;
-    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('TATA Ace1.jpg');
+    padding:120px 5% 50px;
+    background: linear-gradient(rgba(12,19,34,0.85),rgba(12,19,34,0.85)), url('TATA Ace1.jpg');
     background-size:cover;
     background-position:center;
     text-align:center;
 }
-.hero-content h1{ font-size: clamp(32px, 8vw, 60px); color:#facc15; margin-bottom:20px; }
-.hero-content p{ font-size: clamp(16px, 4vw, 20px); line-height:1.6; max-width:800px; margin:auto; color:#ddd; }
+.hero-content h1{ 
+    font-size: clamp(32px, 8vw, 60px); 
+    color:#cfa862; 
+    margin-bottom:20px; 
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    animation: fadeInDown 1s ease forward;
+}
+.hero-content p{ 
+    font-size: clamp(16px, 4vw, 20px); 
+    line-height:1.6; 
+    max-width:800px; 
+    margin:auto; 
+    color:#ddd;
+    animation: fadeIn 1.5s ease forward;
+}
 
 /* --- TITLES --- */
 section{ padding:80px 5%; }
-.section-title{ text-align:center; font-size: clamp(28px, 6vw, 42px); margin-bottom:40px; color:#facc15; text-transform: uppercase; }
+.section-title{ text-align:center; font-size: clamp(28px, 6vw, 42px); margin-bottom:40px; color:#cfa862; text-transform: uppercase; }
 
 /* --- VEHICLE & EXTRA POINTS SECTION --- */
-.about-vehicle { background: #111827; }
+.about-vehicle { background: #121c32; }
 .vehicle-container {
     display: flex;
     flex-wrap: wrap;
@@ -74,43 +110,86 @@ section{ padding:80px 5%; }
     height: auto;
     max-height: 500px; 
     border-radius: 15px; 
-    border: 2px solid #facc15; 
+    border: 2px solid #cfa862; 
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     object-fit: contain; 
-    background: #1f2937;
+    background: #1b2845;
+    transition: transform 0.4s ease;
 }
+.vehicle-side-img:hover { transform: scale(1.03); }
+
 .points-box { flex: 1 1 450px; }
 .points-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 @media (max-width: 480px) { .points-grid { grid-template-columns: 1fr; } }
 .point-card { 
-    background: #1f2937; 
+    background: #1b2845; 
     padding: 20px; 
     border-radius: 12px; 
-    border-left: 4px solid #facc15; 
+    border-left: 4px solid #cfa862; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.point-card h3 { color: #facc15; font-size: 18px; margin-bottom: 8px; }
+/* Animation: Cards lift up and glow when hovered */
+.point-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(207, 168, 98, 0.15);
+}
+.point-card h3 { color: #cfa862; font-size: 18px; margin-bottom: 8px; }
 .point-card p { color: #ccc; font-size: 14px; line-height: 1.4; }
 
 /* --- BOOKING FORM --- */
-.booking-box{ max-width:700px; margin:auto; background:#111827; padding:30px; border-radius:20px; border: 2px solid #facc15; }
+.booking-box{ max-width:700px; margin:auto; background:#121c32; padding:30px; border-radius:20px; border: 2px solid #cfa862; box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
 .form-logo-area { text-align: center; margin-bottom: 25px; }
-.form-logo { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #facc15; margin-bottom: 10px; }
+.form-logo { 
+    width: 180px; 
+    height: 180px; 
+    border-radius: 50%; 
+    margin-bottom: 15px; 
+    object-fit: cover;
+    border: 3px solid #cfa862; 
+    background: transparent;
+    transition: transform 0.5s ease;
+}
+.booking-box:hover .form-logo { transform: scale(1.05); }
 
 .booking-box form{ display:flex; flex-direction: column; gap:15px; }
 .booking-box input, .booking-box textarea{ 
-    padding:14px; border:1px solid #333; border-radius:10px; background:#1f2937; color:white; font-size:16px; width: 100%; 
+    padding:14px; border:1px solid #23355a; border-radius:10px; background:#1b2845; color:white; font-size:16px; width: 100%; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Animation: Inputs glow gold when clicked */
+.booking-box input:focus, .booking-box textarea:focus {
+    outline: none;
+    border-color: #cfa862;
+    box-shadow: 0 0 10px rgba(207, 168, 98, 0.3);
 }
 .booking-box button{ 
-    padding:16px; border:none; border-radius:10px; background:#facc15; font-size:18px; font-weight:700; cursor:pointer; color:#000; transition: 0.3s; 
+    padding:16px; border:none; border-radius:10px; background:#cfa862; font-size:18px; font-weight:700; cursor:pointer; color:#0c1322; 
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease; 
 }
-.booking-box button:hover { background: #22c55e; color: white; }
+/* Animation: Button pops and scales on click/hover */
+.booking-box button:hover { background: #22c55e; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4); }
+.booking-box button:active { transform: translateY(1px); }
 
 /* --- BUTTONS & FLOAT --- */
-.btn{ padding:14px 28px; border-radius:50px; font-size:15px; font-weight:600; text-decoration:none; display:inline-block; transition: 0.3s; }
+.btn{ padding:14px 28px; border-radius:50px; font-size:15px; font-weight:600; text-decoration:none; display:inline-block; transition: transform 0.2s ease, box-shadow 0.3s ease; }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+.btn:active { transform: translateY(-1px); }
 .call-btn{ background:#22c55e; color:white; }
 .whatsapp-btn{ background:#25D366; color:white; }
+
 .float-buttons{ position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:12px; z-index:999; }
-.float-buttons a{ width:55px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; color:white; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.3); }
+.float-buttons a{ width:55px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; color:white; text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.float-buttons a:hover { transform: scale(1.15); }
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
 @media (max-width: 768px) { nav ul { display: none; } }
 </style>
@@ -119,7 +198,7 @@ section{ padding:80px 5%; }
 
 <nav>
     <a href="#home" class="logo-container">
-        <img src="Kumar logo.png.png" alt="Logo" class="logo-img">
+        <img src="Kumar logo3.png.png" alt="Logo" class="logo-img">
         <span class="logo-text">VELAYUTHAM TRANSPORT</span>
     </a>
     <ul>
@@ -172,8 +251,8 @@ section{ padding:80px 5%; }
 <section id="booking">
     <div class="booking-box">
         <div class="form-logo-area">
-            <img src="Kumar logo.png.png" alt="Logo" class="form-logo">
-            <h2 style="color:#facc15">VELAYUTHAM TRANSPORT</h2>
+            <img src="Kumar logo3.png.png" alt="Logo" class="form-logo">
+            <h2 style="color:#cfa862">VELAYUTHAM TRANSPORT</h2>
         </div>
         <form id="bookingForm" onsubmit="handleBooking(event)">
             <input type="text" id="name" placeholder="Your Full Name" required>
@@ -186,7 +265,7 @@ section{ padding:80px 5%; }
     </div>
 </section>
 
-<footer style="padding:40px; text-align:center; background:#111827; color:#888;">
+<footer style="padding:40px; text-align:center; background:#121c32; color:#888;">
     <p>© 2026 Velayutham Transport | Ph: 9443932361</p>
     <p>Created by: K.Dharanivel | DM in instagram </p>
     <p>k._.dharani_vel_8</p>
@@ -230,22 +309,18 @@ function handleBooking(event) {
     let details = document.getElementById("details").value;
 
     // --- SMART PHONE NUMBER VALIDATION ---
-    
-    // 1. Strict Digits-Only Pattern Check (Must be exactly 10 numeric digits)
     const onlyDigitsPattern = /^[0-9]{10}$/;
     if(!onlyDigitsPattern.test(phone)) {
         alert("❌ Error: Please enter a valid 10-digit phone number containing only numbers.");
         return;
     }
     
-    // 2. Reject repeated numbers like 0000000000, 1111111111, 2222222222, 3333333333, etc.
     const allSameDigits = /^(.)\1+$/;
     if(allSameDigits.test(phone)) {
         alert("❌ Error: Invalid fake number detected (All digits are identical)!");
         return;
     }
 
-    // 3. Reject common sequential fake numbers
     const fakeSequences = ["1234567890", "0123456789", "9876543210", "0987654321"];
     if(fakeSequences.includes(phone)) {
         alert("❌ Error: Invalid fake number sequence!");
